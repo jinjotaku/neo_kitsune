@@ -1,0 +1,32 @@
+ body {
+            background-color: #05060b;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        .cyber-grid {
+            background-size: 30px 30px;
+            background-image: 
+                linear-gradient(to right, rgba(22, 27, 51, 0.3) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(22, 27, 51, 0.3) 1px, transparent 1px);
+        }
+        .scanlines {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.15) 50%
+            );
+            background-size: 100% 4px;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05060b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #161b33;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff007f;
+        }

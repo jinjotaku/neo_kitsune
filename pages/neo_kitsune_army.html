@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creador de Listas No oficial de Infinity N5">
+    <title>Neo Kitsune Dojo - JSA N5 Army Builder</title>
+    
+    <!-- Tailwind CSS Oficial via CDN (Reparado) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Tailwind Configurations -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        cyber: ['Orbitron', 'sans-serif'],
+                        tech: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#05060b',
+                            card: '#0c0e1a',
+                            border: '#161b33',
+                            pink: '#ff007f',
+                            cyan: '#00f0ff',
+                            purple: '#9d00ff',
+                            green: '#39ff14',
+                            yellow: '#ffef00'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+       <!-- local CSS -->
+    <link rel="stylesheet" href="../css/style_army.css">
+</head>
+<body class="font-sans min-h-screen flex flex-col antialiased relative selection:bg-cyber-pink selection:text-white pb-20 lg:pb-0">
+
+    <!-- Ambient Grid Background -->
+    <div class="absolute inset-0 cyber-grid pointer-events-none z-0"></div>
+    <div class="absolute inset-0 scanlines pointer-events-none z-0 opacity-10"></div>
+
+    <!-- Main Navigation Bar -->
+    <nav class="relative z-50 border-b border-cyber-border bg-cyber-bg/95 backdrop-blur-md sticky top-0 no-print">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-0 min-h-[5rem] sm:h-28 flex flex-wrap sm:flex-nowrap items-center justify-between gap-y-2">
+            
+          <!-- Bloque Izquierdo: Logo y Título -->
+            <div class="flex items-center gap-3 sm:gap-6 w-full sm:w-auto justify-between sm:justify-start">
+                <div class="flex items-center gap-2 sm:gap-6">
+                    <div class="relative w-10 h-10 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-cyber-cyan/60 shadow-[0_0_20px_rgba(0,240,255,0.3)] bg-black flex-shrink-0">
+                        <img id="logoKitsune" src="../img/Logo_neo_kitsune.png" alt="Logo" class="w-full h-full object-cover absolute z-10" onerror="this.style.display='none';">
+                        <div class="w-full h-full flex items-center justify-center bg-cyber-card">
+                            <svg class="w-full h-full p-2 text-cyber-cyan" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M50 12 L20 42 L32 75 L50 88 L68 75 L80 42 Z" stroke="currentColor" stroke-width="2.5" fill="#080a14" />
+                                <path d="M20 42 L40 54 L50 42 L60 54 L80 42" stroke="#ff007f" stroke-width="2" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <span class="font-cyber font-black tracking-wider text-sm sm:text-2xl bg-gradient-to-r from-cyber-cyan via-cyber-pink to-cyber-purple bg-clip-text text-transparent drop-shadow-md">
+                            NEO KITSUNE
+                        </span>
+                        <span class="block text-[8px] sm:text-xs font-tech tracking-[0.22em] text-cyber-pink uppercase mt-0.5">ARMY BUILDER N5</span>
+                    </div>
+                </div>
+                
+                <!-- Botón volver mini para móviles enlazado a index.html -->
+                <a href="index.html" class="sm:hidden flex items-center justify-center p-1.5 bg-cyber-green/10 hover:bg-cyber-green hover:text-black border border-cyber-green/30 text-cyber-green rounded-lg transition-colors">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+              <!-- Bloque Derecho: Selector Facción y Límites -->
+            <div class="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-between sm:justify-end border-t border-cyber-border/50 sm:border-0 pt-2 sm:pt-0">
+                
+                <!-- Botón volver para Desktop enlazado a index.html -->
+                <a href="index.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-cyber-green/10 hover:bg-cyber-green hover:text-black border border-cyber-green/30 text-cyber-green font-cyber font-bold text-[10px] tracking-wider rounded-lg transition-all uppercase">
+                    <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Volver
+                </a>
+                
+                <div class="flex items-center gap-1.5">
+                    <span class="text-gray-400 text-[10px] sm:text-xs">Facción:</span>
+                    <select id="factionSelect" onchange="changeFaction()" class="bg-black border border-cyber-border px-2 py-1 rounded-lg text-cyber-pink text-[10px] sm:text-xs font-bold focus:outline-none focus:border-cyber-cyan font-mono uppercase w-[120px] sm:w-40 truncate">
+                        <!-- Generado por JS -->
+                    </select>
+                </div>
+                
+                <div class="h-6 w-px bg-cyber-border hidden md:block"></div>
+                <div class="hidden md:flex items-center gap-4 bg-cyber-card/60 border border-cyber-border p-2 rounded-xl text-xs font-semibold">
+                    <div class="flex items-center gap-2">
+                        <span class="text-gray-400">Límite:</span>
+                        <select id="maxPointsSelect" onchange="changeMaxPoints()" class="bg-black border border-cyber-border px-2 py-1 rounded text-cyber-cyan font-bold focus:outline-none">
+                            <option value="150">150 PTS</option>
+                            <option value="250">250 PTS</option>
+                            <option value="300" selected>300 PTS</option>
+                            <option value="400">400 PTS</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+        </div>
+    </nav>
+
+    <!-- Header Banner -->
+    <header class="relative z-10 w-full py-10 border-b border-cyber-border/80 flex items-center justify-center overflow-hidden no-print">
+        <div class="absolute inset-0 bg-cover bg-center z-0 opacity-15" style="background-image: url('Imagen_head_kitsune_ciberpunk.png');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-cyber-bg via-transparent to-cyber-bg z-10"></div>
+        <div class="relative z-30 text-center px-4 max-w-4xl">
+            <span class="inline-flex items-center px-3 py-1 rounded bg-black/85 border border-cyber-cyan/30 text-cyber-cyan text-[9px] font-tech tracking-[0.18em] uppercase mb-3 shadow-[0_0_15px_rgba(0,240,255,0.1)]">
+                <i data-lucide="shield-alert" class="w-3.5 h-3.5 mr-1.5 animate-pulse text-cyber-pink"></i> SECTOR SHINDENBUTAI & OBAN COMPANION
+            </span>
+            <h1 class="font-cyber font-black text-2xl sm:text-4xl text-white tracking-tight">
+                 <span class="bg-gradient-to-r from-cyber-cyan via-cyber-pink to-cyber-purple bg-clip-text text-transparent">INFINITY N5</span>
+            </h1>
+        </div>
+    </header>
+
+    <!-- Main Workspace Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
+
+        <!-- MAIN LEFT PANEL: Filters & Catalog (lg:col-span-7) -->
+        <section class="lg:col-span-7 flex flex-col gap-5 no-print">
+            
+            <div class="bg-cyber-card border border-cyber-border rounded-xl p-4 backdrop-blur-md shadow-lg z-20 lg:sticky lg:top-[7.5rem]">
+                <h3 class="text-xs font-tech tracking-widest text-cyber-cyan uppercase mb-4 flex items-center gap-2">
+                    <i data-lucide="sliders" class="w-4 h-4 text-cyber-cyan"></i> FILTROS DE RECLUTAMIENTO
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] text-gray-400 font-tech tracking-wider uppercase block mb-1.5">Buscador Rápido</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i data-lucide="search" class="w-4 h-4 text-gray-500"></i>
+                            </span>
+                            <input 
+                                type="text" 
+                                id="troopSearchInput" 
+                                placeholder="Ej: Senku, Hatamoto, Ninja..." 
+                                class="w-full bg-black/80 border border-cyber-border rounded-lg pl-9 pr-4 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-cyber-cyan transition-all"
+                                oninput="filterTroops()"
+                            >
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-[10px] text-gray-400 font-tech tracking-wider uppercase block mb-1.5">Tipo de Tropa (Rol)</label>
+                        <select id="typeFilter" onchange="filterTroops()" class="w-full bg-black border border-cyber-border px-3 py-2 rounded-lg text-xs text-slate-300 focus:outline-none focus:border-cyber-cyan">
+                            <option value="ALL">Mostrar Todos los Tipos</option>
+                            <option value="LI">Infantería Ligera (LI)</option>
+                            <option value="MI">Infantería Media (MI)</option>
+                            <option value="HI">Infantería Pesada (HI)</option>
+                            <option value="SK">Batidores / Ninjas (SK)</option>
+                            <option value="TAG">T.A.G. (Grandes Blindados)</option>
+                            <option value="WB">Tropa Asalto / Motos (WB)</option>
+                            <option value="REM">Remotos de Apoyo (REM)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Contenedor para los filtros de sectorial de app.js -->
+                <div id="sectorialFiltersContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4 pt-4 border-t border-cyber-border/50">
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-4 mt-2">
+                <div class="flex items-center justify-between bg-cyber-card/90 border border-cyber-border px-4 py-3 rounded-xl z-10 backdrop-blur-md">
+                    <span id="catalogCountHeader" class="text-xs font-tech text-gray-400 uppercase tracking-widest">
+                        Cargando tropas de asalto...
+                    </span>
+                    <span class="text-[9px] bg-cyber-pink/20 text-cyber-pink font-mono px-2 py-0.5 rounded border border-cyber-pink/30 uppercase tracking-wider animate-pulse">
+                        N5 Active DB
+                    </span>
+                </div>
+
+                <!-- CONTENEDOR DEL CATÁLOGO DE TROPAS -->
+                <!-- Aseguramos que el contenido se muestre a tamaño completo con diseño vertical -->
+                <div class="flex flex-col gap-5 pb-8 w-full" id="troopCatalog">
+                    <!-- Injected via javascript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- RIGHT PANEL: Combat Army List & Validation Panel (col-span-1 lg:col-span-5) -->
+        <section class="lg:col-span-5 flex flex-col gap-5 lg:sticky lg:top-[7.5rem] self-start max-h-[calc(100vh-9rem)] overflow-y-auto pr-1">
+            
+            <div class="bg-cyber-card border border-cyber-border p-5 rounded-xl glow-pink flex flex-col gap-4">
+                <div class="flex justify-between items-center border-b border-cyber-border pb-3">
+                    <h3 class="font-cyber font-bold text-xs uppercase tracking-wider text-cyber-pink flex items-center gap-1.5">
+                        <i data-lucide="cpu" class="w-4 h-4 text-cyber-pink animate-spin" style="animation-duration: 4s;"></i> CONSOLA TÁCTICA
+                    </h3>
+                    <div class="flex gap-2 no-print">
+                        <button onclick="clearCurrentArmy()" class="p-1.5 rounded bg-black/60 border border-cyber-border hover:bg-cyber-pink/10 hover:border-cyber-pink text-gray-400 hover:text-cyber-pink transition-all" title="Borrar lista entera">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="window.print()" class="p-1.5 rounded bg-black/60 border border-cyber-border hover:bg-cyber-cyan/10 hover:border-cyber-cyan text-gray-400 hover:text-cyber-cyan transition-all" title="Imprimir hoja de control física">
+                            <i data-lucide="printer" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- FACTION LOCK BADGE -->
+                <div id="factionLockBadge" class="hidden flex items-center justify-between bg-black/80 border border-cyber-cyan/50 rounded-lg px-3 py-2 mt-[-5px]">
+                    <span class="text-[9px] text-gray-400 font-tech uppercase tracking-widest flex items-center gap-1.5">
+                        <i data-lucide="lock" class="w-3 h-3 text-cyber-cyan"></i> Facción Bloqueada
+                    </span>
+                    <span id="activeFactionText" class="text-[11px] text-cyber-cyan font-bold uppercase tracking-widest font-cyber"></span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2.5 text-center">
+                    <div class="bg-black/60 p-2 rounded-lg border border-cyber-border">
+                        <div class="text-[9px] text-gray-400 font-tech tracking-wider uppercase">PUNTOS</div>
+                        <div class="text-base sm:text-lg font-bold font-mono tracking-tight mt-0.5 text-cyber-cyan" id="pointsCountText">0 / 300</div>
+                    </div>
+                    <div class="bg-black/60 p-2 rounded-lg border border-cyber-border">
+                        <div class="text-[9px] text-gray-400 font-tech tracking-wider uppercase">CAP (SWC)</div>
+                        <div class="text-base sm:text-lg font-bold font-mono tracking-tight mt-0.5 text-cyber-pink" id="swcCountText">0.0 / 6.0</div>
+                    </div>
+                    <div class="bg-black/60 p-2 rounded-lg border border-cyber-border">
+                        <div class="text-[9px] text-gray-400 font-tech tracking-wider uppercase">MINIATURAS</div>
+                        <div class="text-base sm:text-lg font-bold font-mono tracking-tight mt-0.5 text-cyber-yellow" id="minisCountText">0 / 15</div>
+                    </div>
+                </div>
+
+                <div id="validationAlerts" class="flex flex-col gap-1.5">
+                    <!-- Dynamic rule checks injected here -->
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-[11px]">
+                    <div class="bg-black/40 p-2.5 rounded-lg border border-cyber-border">
+                        <div class="font-bold text-cyber-cyan border-b border-cyber-border pb-1.5 mb-2 flex justify-between items-center font-cyber">
+                            <span>GRUPO 1</span>
+                            <span class="text-xs text-cyber-cyan" id="g1OrderSum">0</span>
+                        </div>
+                        <div class="flex flex-col gap-1 text-gray-400">
+                            <div class="flex justify-between"><span>Regulares:</span> <span id="g1Reg" class="font-mono text-slate-100">0</span></div>
+                            <div class="flex justify-between"><span>Irregulares:</span> <span id="g1Irreg" class="font-mono text-cyber-yellow">0</span></div>
+                            <div class="flex justify-between"><span>Impetuosas:</span> <span id="g1Imp" class="font-mono text-cyber-pink">0</span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-black/40 p-2.5 rounded-lg border border-cyber-border">
+                        <div class="font-bold text-cyber-purple border-b border-cyber-border pb-1.5 mb-2 flex justify-between items-center font-cyber">
+                            <span>GRUPO 2</span>
+                            <span class="text-xs text-cyber-purple" id="g2OrderSum">0</span>
+                        </div>
+                        <div class="flex flex-col gap-1 text-gray-400">
+                            <div class="flex justify-between"><span>Regulares:</span> <span id="g2Reg" class="font-mono text-slate-100">0</span></div>
+                            <div class="flex justify-between"><span>Irregulares:</span> <span id="g2Irreg" class="font-mono text-cyber-yellow">0</span></div>
+                            <div class="flex justify-between"><span>Impetuosas:</span> <span id="g2Imp" class="font-mono text-cyber-pink">0</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2.5 no-print">
+                    <button onclick="exportArmyCode()" class="bg-cyber-pink hover:bg-cyber-pink/80 text-white font-cyber font-bold py-2.5 px-3 rounded-lg text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(255,0,127,0.3)]">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> COPIAR CÓDIGO
+                    </button>
+                    <button onclick="importArmyCodePrompt()" class="bg-black/80 hover:bg-cyber-border text-slate-100 border border-cyber-border font-cyber font-bold py-2.5 px-3 rounded-lg text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-1.5">
+                        <i data-lucide="download" class="w-3.5 h-3.5"></i> IMPORTAR
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-cyber-card/90 border border-cyber-border p-4 rounded-xl flex flex-col gap-3">
+                <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+                    <h4 class="font-cyber font-bold text-[10px] text-cyber-cyan uppercase tracking-widest flex items-center gap-2">
+                        <span class="w-2 h-2 bg-cyber-cyan rounded-full animate-pulse shadow-[0_0_8px_rgba(0,240,255,0.8)]"></span> GRUPO DE COMBATE 1
+                    </h4>
+                    <span class="text-[9px] text-gray-400 font-bold font-mono" id="g1MiniCounter">0 / 10 Miniaturas</span>
+                </div>
+                <div id="armyGroup1List" class="flex flex-col gap-2 min-h-[60px] justify-center items-center text-gray-500 text-xs italic border border-dashed border-cyber-border rounded-lg p-4">
+                    Sin tropas asignadas en el Grupo 1.
+                </div>
+            </div>
+
+            <div class="bg-cyber-card/90 border border-cyber-border p-4 rounded-xl flex flex-col gap-3">
+                <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+                    <h4 class="font-cyber font-bold text-[10px] text-cyber-purple uppercase tracking-widest flex items-center gap-2">
+                        <span class="w-2 h-2 bg-cyber-purple rounded-full animate-pulse shadow-[0_0_8px_rgba(157,0,255,0.8)]"></span> GRUPO DE COMBATE 2
+                    </h4>
+                    <span class="text-[9px] text-gray-400 font-bold font-mono" id="g2MiniCounter">0 / 10 Miniaturas</span>
+                </div>
+                <div id="armyGroup2List" class="flex flex-col gap-2 min-h-[60px] justify-center items-center text-gray-500 text-xs italic border border-dashed border-cyber-border rounded-lg p-4">
+                    Sin tropas asignadas en el Grupo 2.
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+      <!-- Botón Scroll to Top (Flotante y visible solo para Smartphones) -->
+    <button id="scrollToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="lg:hidden fixed bottom-20 right-4 bg-black/85 backdrop-blur border border-cyber-cyan text-cyber-cyan p-3.5 rounded-full shadow-[0_0_15px_rgba(0,240,255,0.4)] z-[60] transition-all duration-300 opacity-0 translate-y-4 pointer-events-none hover:bg-cyber-cyan hover:text-black active:scale-95 no-print flex items-center justify-center">
+        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
+
+     <!-- BARRA ESTADÍSTICAS MÓVIL (Fija abajo, solo visible en smartphones) -->
+    <!-- Envolvemos en un botón para navegación interna hacia la Consola Táctica (sección padre del panel derecho) -->
+    <button 
+        onclick="document.getElementById('validationAlerts').scrollIntoView({behavior: 'smooth', block: 'center'})"
+        class="lg:hidden fixed bottom-0 left-0 right-0 bg-cyber-card/95 backdrop-blur-xl border-t-2 border-cyber-cyan/50 z-50 flex items-center justify-around p-3 pb-safe shadow-[0_-5px_25px_rgba(0,240,255,0.15)] no-print w-full transition-all active:bg-cyber-cyan/10"
+    >
+        <div class="flex flex-col items-center">
+            <span class="text-[9px] text-gray-400 font-tech tracking-widest uppercase mb-0.5">Puntos</span>
+            <span class="text-sm font-bold font-mono text-cyber-cyan" id="mobilePnts">0 / 300</span>
+        </div>
+        <div class="w-px h-8 bg-cyber-border"></div>
+        <div class="flex flex-col items-center">
+            <span class="text-[9px] text-gray-400 font-tech tracking-widest uppercase mb-0.5">CAP (SWC)</span>
+            <span class="text-sm font-bold font-mono text-cyber-pink" id="mobileStickySWC">0.0 / 6.0</span>
+        </div>
+        <div class="w-px h-8 bg-cyber-border"></div>
+        <div class="flex flex-col items-center">
+            <span class="text-[9px] text-gray-400 font-tech tracking-widest uppercase mb-0.5">Minis</span>
+            <span class="text-sm font-bold font-mono text-cyber-yellow" id="mobileMinis">0 / 15</span>
+        </div>
+    </button>
+
+    <!-- Custom Floating Sci-Fi Toast Notification system -->
+    <div id="toastNotification" class="fixed bottom-24 lg:bottom-4 right-4 bg-cyber-card border border-cyber-cyan/50 text-slate-100 px-4 py-3 rounded-lg shadow-2xl transition-all translate-y-20 lg:translate-y-20 opacity-0 z-50 flex items-center gap-2.5 text-xs font-semibold max-w-sm pointer-events-none">
+        <i data-lucide="terminal" class="w-5 h-5 text-cyber-cyan"></i>
+        <span id="toastText">Consola Inicializada</span>
+    </div>
+
+    <!-- Footer mirroring standard Wiki design -->
+    <footer class="relative z-10 border-t border-cyber-border bg-black/80 py-10 mt-12 text-center text-xs text-gray-500 no-print">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center gap-4">
+            <div class="relative w-16 h-16 rounded-full overflow-hidden border-2 border-cyber-cyan/30 grayscale hover:grayscale-0 transition-all bg-black flex items-center justify-center">
+                <svg class="w-full h-full p-2 text-cyber-cyan" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 12 L20 42 L32 75 L50 88 L68 75 L80 42 Z" stroke="currentColor" stroke-width="2.5" fill="#080a14" />
+                    <path d="M20 42 L40 54 L50 42 L60 54 L80 42" stroke="#ff007f" stroke-width="2" />
+                    <path d="M50 62 L47 67 L53 67 Z" fill="currentColor" />
+                </svg>
+            </div>
+            <div>
+                <p class="text-cyber-cyan font-tech tracking-widest uppercase mb-1">© 2026 NEO KITSUNE DOJO // COMPILADOR DE COMBATE N5</p>
+                <p class="text-[9px] text-gray-600 max-w-md mx-auto">Infinity es una marca registrada de Corvus Belli S.L. Todo el contenido expuesto aquí es de carácter educativo e ilustrativo para partidas tácticas rápidas.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carga de facciones -->
+    <script src="../js/factions.js"></script>
+    <!-- LOGICA DE APLICACION INTEGRADA -->
+    <script src="../js/main_army.js"></script>
+</body>
+</html>

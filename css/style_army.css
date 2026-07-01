@@ -1,0 +1,75 @@
+     body {
+            background-color: #05060b;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        .cyber-grid {
+            background-size: 30px 30px;
+            background-image: 
+                linear-gradient(to right, rgba(22, 27, 51, 0.25) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(22, 27, 51, 0.25) 1px, transparent 1px);
+        }
+        .scanlines {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.12) 50%
+            );
+            background-size: 100% 4px;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05060b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #161b33;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff007f;
+        }
+        .glow-cyan {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            border-color: rgba(0, 240, 255, 0.3);
+        }
+        .glow-pink {
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.25);
+            border-color: rgba(255, 0, 127, 0.35);
+        }
+        .glow-purple {
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.2);
+            border-color: rgba(157, 0, 255, 0.3);
+        }
+
+        /* Utilidad para padding en móviles por la barra inferior */
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+
+        /* Print Media queries optimized for tactical physical roster */
+        @media print {
+            @page { margin: 0.5cm; }
+            .no-print { display: none !important; }
+            body, html {
+                background: white !important;
+                color: black !important;
+                font-size: 10px !important;
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
+            }
+            main { display: block !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+            section.lg\:col-span-5 {
+                max-height: none !important; overflow: visible !important; position: static !important;
+                width: 100% !important; display: block !important; margin: 0 !important; padding: 0 !important;
+            }
+            .print-card {
+                border: 1px solid #777 !important; background: white !important; color: black !important;
+                box-shadow: none !important; page-break-inside: avoid; margin-bottom: 4px !important;
+                padding: 4px 8px !important; border-radius: 4px !important;
+            }
+            .print-card * { text-shadow: none !important; color: black !important; background-color: transparent !important; border-color: #aaa !important; }
+            .glow-pink, .bg-cyber-card { padding: 8px !important; margin-bottom: 8px !important; border: 1px solid #777 !important; box-shadow: none !important; background: transparent !important; }
+            #armyGroup1List, #armyGroup2List { min-height: auto !important; padding: 0 !important; border: none !important; display: block !important; }
+            .cyber-grid, .scanlines { display: none !important; }
+        }
